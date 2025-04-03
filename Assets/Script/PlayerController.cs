@@ -49,7 +49,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
     public LayerMask GroundLayer;
-    
+    public GameObject dashEffect;
+
 
     void Update()
     {
@@ -169,6 +170,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && !hasDashed)
         {
             StartCoroutine(Dash());
+
         }
     }
 
@@ -188,6 +190,8 @@ public class PlayerController : MonoBehaviour
             dashX = facingRight ? 1 : -1;
         }
 
+        CameraShake.Instance.ShakeCamera(2.5f, 0.3f);
+        Instantiate(dashEffect, transform.position, Quaternion.identity);
         Vector2 dashDirection = new Vector2(dashX, dashY).normalized;
         rb.velocity = dashDirection * dashSpeed;
 
