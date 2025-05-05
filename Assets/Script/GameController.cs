@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
 {
     Vector2 checkpointPos;
     Rigidbody2D playerRb;
+    public GameObject DieEffect;
+
 
 
     private void Start()
@@ -20,6 +22,8 @@ public class GameController : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             Die();
+            Instantiate(DieEffect, transform.position, Quaternion.identity);
+
         }
     }
 

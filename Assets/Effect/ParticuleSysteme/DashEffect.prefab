@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2259820312424340829}
   - component: {fileID: 4934709938103926767}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

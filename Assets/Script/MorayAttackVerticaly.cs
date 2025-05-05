@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class MorayAttack : MonoBehaviour
+public class MorayAttackVerticaly : MonoBehaviour
 {
     public float downSpeed = 1f;  
     public float upSpeed = 2f;     
