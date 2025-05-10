@@ -6,9 +6,12 @@ public class GamePhaseManager : MonoBehaviour
     public enum Phase { Platformer, Runner }
     public Phase currentPhase;
 
+
+
     void Start()
     {
         SwitchPhase(currentPhase);
+
     }
 
     public void SwitchPhase(Phase newPhase)
@@ -30,4 +33,5 @@ public class GamePhaseManager : MonoBehaviour
 
         }
     }
+
 }

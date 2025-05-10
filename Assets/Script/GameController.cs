@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     Vector2 checkpointPos;
     Rigidbody2D playerRb;
     public GameObject DieEffect;
+    public GamePhaseManager phaseManager;
 
 
 
@@ -40,6 +41,8 @@ public class GameController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
+        phaseManager.SwitchPhase(GamePhaseManager.Phase.Platformer);
+
         playerRb.velocity = new Vector2(0, 0);
         playerRb.simulated = false;
         transform.localScale = new Vector3(0, 0, 0);
@@ -47,6 +50,8 @@ public class GameController : MonoBehaviour
         transform.position = checkpointPos;
         transform.localScale = new Vector3(1, 1, 1);
         playerRb.simulated = true;
+
+
     }
 
 
