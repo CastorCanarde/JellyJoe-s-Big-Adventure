@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class GameController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameController : MonoBehaviour
     Rigidbody2D playerRb;
     public GameObject DieEffect;
     public GamePhaseManager phaseManager;
+    public CinemachineVirtualCamera cam1;
+
+
 
 
 
@@ -41,7 +45,10 @@ public class GameController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
+
+
         phaseManager.SwitchPhase(GamePhaseManager.Phase.Platformer);
+
 
         playerRb.velocity = new Vector2(0, 0);
         playerRb.simulated = false;
@@ -51,9 +58,10 @@ public class GameController : MonoBehaviour
         transform.localScale = new Vector3(1, 1, 1);
         playerRb.simulated = true;
 
+        CameraManager.SwitchCamera(cam1);
+
+
 
     }
 
-
-
-    }
+}

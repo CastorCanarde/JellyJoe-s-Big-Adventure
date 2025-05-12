@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class GamePhaseManager : MonoBehaviour
@@ -5,7 +6,8 @@ public class GamePhaseManager : MonoBehaviour
     public GameObject player;
     public enum Phase { Platformer, Runner }
     public Phase currentPhase;
-
+    public CinemachineVirtualCamera cam1;
+    public CinemachineVirtualCamera cam2;
 
 
     void Start()
@@ -23,11 +25,13 @@ public class GamePhaseManager : MonoBehaviour
 
         if (newPhase == Phase.Platformer)
         {
+            CameraManager.SwitchCamera(cam1);
             platformer.enabled = true;
             runner.enabled = false;
         }
         else if (newPhase == Phase.Runner)
         {
+            CameraManager.SwitchCamera(cam2);
             platformer.enabled = false;
             runner.enabled = true;
 
