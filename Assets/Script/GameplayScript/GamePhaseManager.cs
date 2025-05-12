@@ -10,6 +10,8 @@ public class GamePhaseManager : MonoBehaviour
     public CinemachineVirtualCamera cam1;
     public CinemachineVirtualCamera cam2;
 
+
+
     void Start()
     {
         SwitchPhase(currentPhase);

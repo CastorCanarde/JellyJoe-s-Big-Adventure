@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
             dashX = facingRight ? 1 : -1;
         }
 
-        CameraShake.Instance.ShakeCamera(2.5f, 0.3f);
+        CameraShake.Instance.ShakeCamera(4f, 1f);
         Instantiate(dashEffect, transform.position, Quaternion.identity);
         Vector2 dashDirection = new Vector2(dashX, dashY).normalized;
         rb.velocity = dashDirection * dashSpeed;

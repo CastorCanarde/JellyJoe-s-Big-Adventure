@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: 930775b45210e45449a5d8633c49508b
+  - enabled: 1
+    path: Assets/Scenes/LooseMenu.unity
+    guid: 31614db4e14740149b487fab13d4d1f5
   m_configObjects: {}
