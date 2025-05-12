@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     public GameObject DieEffect;
     public GamePhaseManager phaseManager;
     public CinemachineVirtualCamera cam1;
+    public CinemachineVirtualCamera cam2;
+
+
 
 
 
@@ -45,8 +48,6 @@ public class GameController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
-
-
         phaseManager.SwitchPhase(GamePhaseManager.Phase.Platformer);
 
 
@@ -58,7 +59,6 @@ public class GameController : MonoBehaviour
         transform.localScale = new Vector3(1, 1, 1);
         playerRb.simulated = true;
 
-        CameraManager.SwitchCamera(cam1);
 
 
 

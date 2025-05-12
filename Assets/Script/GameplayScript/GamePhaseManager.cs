@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using System.Collections;
 
 public class GamePhaseManager : MonoBehaviour
 {
@@ -9,11 +10,9 @@ public class GamePhaseManager : MonoBehaviour
     public CinemachineVirtualCamera cam1;
     public CinemachineVirtualCamera cam2;
 
-
     void Start()
     {
         SwitchPhase(currentPhase);
-
     }
 
     public void SwitchPhase(Phase newPhase)
@@ -34,8 +33,8 @@ public class GamePhaseManager : MonoBehaviour
             CameraManager.SwitchCamera(cam2);
             platformer.enabled = false;
             runner.enabled = true;
-
         }
     }
 
+  
 }

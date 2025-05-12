@@ -16,11 +16,10 @@ public class VerticalRunnerController : MonoBehaviour
     private bool isDashing = false;
     private float lastDashTime = -Mathf.Infinity;
 
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0; // On désactive la gravité pour garder un mouvement constant vers le haut
     }
 
     void Update()
@@ -30,13 +29,13 @@ public class VerticalRunnerController : MonoBehaviour
         // Mouvement vertical automatique
         Vector2 velocity = new Vector2(0, verticalSpeed);
 
-        // Contrôle gauche/droite
+        // Contrôle horizontal
         float moveX = Input.GetAxisRaw("Horizontal");
         velocity.x = moveX * horizontalSpeed;
 
         rb.velocity = velocity;
 
-        // Dash
+        // Dash (gauche ou droite avec Shift + direction)
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time >= lastDashTime + dashCooldown && moveX != 0)
         {
             StartCoroutine(Dash(moveX));
@@ -48,15 +47,11 @@ public class VerticalRunnerController : MonoBehaviour
         isDashing = true;
         lastDashTime = Time.time;
 
-        float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0;
-
-        // Lance dash horizontal uniquement
-        rb.velocity = new Vector2(direction * dashForce, 0);
+        // Appliquer le dash horizontal en conservant la montée
+        rb.velocity = new Vector2(direction * dashForce, verticalSpeed);
 
         yield return new WaitForSeconds(dashDuration);
 
-        rb.gravityScale = originalGravity;
         isDashing = false;
     }
 }
