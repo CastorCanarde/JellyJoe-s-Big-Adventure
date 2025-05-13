@@ -50,8 +50,12 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public LayerMask GroundLayer;
     public GameObject dashEffect;
+    private Animator animator;
 
-
+    void Start()
+    {
+        animator = GetComponent<Animator> ();
+    }
     void Update()
     {
         PlayerPositionIsWalled = new Vector2(transform.position.x, transform.position.y - 0.2f);
@@ -110,7 +114,14 @@ public class PlayerController : MonoBehaviour
         {
             float controlFactor = isGrounded ? 1f : AirControlFactor; 
             rb.velocity = new Vector2(moveInput * moveSpeed * controlFactor, rb.velocity.y);
+            animator.SetBool("isRunning", true); 
         }
+
+        if (moveInput == 0)
+        {
+            animator.SetBool("isRunning", false);
+        }
+        
     }
 
     void Jump()

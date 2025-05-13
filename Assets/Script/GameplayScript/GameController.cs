@@ -12,14 +12,16 @@ public class GameController : MonoBehaviour
     public CinemachineVirtualCamera cam1;
     public CinemachineVirtualCamera cam2;
 
+    private Vector3 basicScale;
 
-
+    
 
 
 
 
     private void Start()
     {
+        basicScale = transform.localScale;
         checkpointPos = transform.position;
         playerRb = GetComponent<Rigidbody2D>();
 
@@ -56,7 +58,7 @@ public class GameController : MonoBehaviour
         transform.localScale = new Vector3(0, 0, 0);
         yield return new WaitForSeconds(duration);
         transform.position = checkpointPos;
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = basicScale;
         playerRb.simulated = true;
 
 
