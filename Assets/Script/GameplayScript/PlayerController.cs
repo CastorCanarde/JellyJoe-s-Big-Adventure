@@ -51,10 +51,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask GroundLayer;
     public GameObject dashEffect;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         animator = GetComponent<Animator> ();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             hasWallJumped = false;
         }
+
 
         MovePlayer();
 
@@ -130,6 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             hasWallJumped = false;  
+            animator.SetBool("isJumping",true);
         }
         else if (isWalled && !isGrounded && !hasWallJumped)  
         {
@@ -169,10 +173,15 @@ public class PlayerController : MonoBehaviour
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            animator.SetBool("isWallSliding", true);
+
+
         }
         else
         {
             isWallSliding = false;
+            animator.SetBool("isWallSliding", false);
+
         }
     }
 
@@ -189,6 +198,8 @@ public class PlayerController : MonoBehaviour
     {
         hasDashed = true;
         isDashing = true;
+        animator.SetBool("isDashing", true);
+
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
 
@@ -210,18 +221,21 @@ public class PlayerController : MonoBehaviour
 
         rb.gravityScale = originalGravity;
         isDashing = false;
+        animator.SetBool("isDashing", false);
+
     }
     private void FlipCharacter()
     {
-        if (moveInput > 0 && !facingRight)
-            Flip();
-        else if (moveInput < 0 && facingRight)
-            Flip();
+        if (moveInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (moveInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+
     }
 
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-    }
 }
