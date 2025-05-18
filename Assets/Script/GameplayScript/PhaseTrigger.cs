@@ -7,7 +7,10 @@ public class PhaseTrigger : MonoBehaviour
     public GamePhaseManager gamePhaseManager;
 
     public GameObject SpeedEffect;
- 
+
+    public GameObject JellyJoeHeadElevationPhase;
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {

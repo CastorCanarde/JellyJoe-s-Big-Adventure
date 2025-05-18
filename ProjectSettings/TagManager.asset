@@ -57,6 +57,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: tentacules
+    uniqueID: 3205252401
+    locked: 0
   - name: Player
     uniqueID: 3586527125
     locked: 0
