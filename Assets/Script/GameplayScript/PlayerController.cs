@@ -76,6 +76,18 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(PlayerPositionIsWalled, Vector2.right * CheckWallDistance, Color.red);
         Debug.DrawRay(PlayerPositionIsWalled, Vector2.left * CheckWallDistance, Color.red);
 
+        if (rb.velocity.y < 0)
+        {
+            animator.SetBool("isFalling", true);
+        }
+
+
+        if (isGrounded)
+        {
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isFalling", false);
+        }
+
         if (isGrounded && !isWalled)
         {
             hasDashed = false;
@@ -137,7 +149,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (isWalled && !isGrounded && !hasWallJumped)  
         {
+            animator.SetBool("isWallJumping", true);
             WallJump();
+            StartCoroutine(Test());
+
         }
     }
 
@@ -235,6 +250,13 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
+
+    }
+
+    private IEnumerator Test()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("isWallJumping", false);
 
     }
 
