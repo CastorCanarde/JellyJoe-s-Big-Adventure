@@ -7,6 +7,9 @@ public class GamePhaseManager : MonoBehaviour
     public enum Phase { Platformer, Runner }
     public Phase currentPhase;
 
+    private AudioSource audioSource;
+
+
     public CinemachineVirtualCamera cam1;
     public CinemachineVirtualCamera cam2;
 
@@ -17,6 +20,8 @@ public class GamePhaseManager : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
         SwitchPhase(currentPhase);
     }
