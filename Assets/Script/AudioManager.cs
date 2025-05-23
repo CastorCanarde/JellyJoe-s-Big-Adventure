@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -12,84 +10,47 @@ public class AudioManager : MonoBehaviour
     private AudioSource audioSource;
     public GamePhaseManager gamePhaseManager;
 
-    private bool hasStartedLoop = false;
-    private GamePhaseManager.Phase lastPhase;
+    private bool hasStartedRunner = false;
+    private bool isWaitingForLoop = false;
 
-    // Ajout : on garde une trace de si chaque phase a déjà été jouée
-    private bool hasPlayedPlatformer = false;
-    private bool hasPlayedRunner = false;
-
-    private void Start()
+    void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        lastPhase = gamePhaseManager.currentPhase;
-
-        PlayPhaseIntroOnce(lastPhase);
+        audioSource.clip = startPlatformerMusic;
+        audioSource.loop = false;
+        audioSource.Play();
+        isWaitingForLoop = true;
     }
 
     void Update()
     {
-        var currentPhase = gamePhaseManager.currentPhase;
-
-        // Si la phase a changé
-        if (currentPhase != lastPhase)
+        // Jouer la boucle Platformer si l'intro est terminée
+        if (isWaitingForLoop && !audioSource.isPlaying && !hasStartedRunner)
         {
-            lastPhase = currentPhase;
-            hasStartedLoop = false;
-
-            PlayPhaseIntroOnce(currentPhase);
+            audioSource.clip = platformerMusicBoucle;
+            audioSource.loop = true;
+            audioSource.Play();
+            isWaitingForLoop = false;
         }
 
-        // Si la musique d’intro est terminée et qu’on n’a pas encore joué la boucle
-        if (!audioSource.isPlaying && !hasStartedLoop)
+        // Quand on passe EN PREMIÈRE FOIS en phase Runner
+        if (!hasStartedRunner && gamePhaseManager.currentPhase == GamePhaseManager.Phase.Runner)
         {
-            PlayPhaseLoop(currentPhase);
-            hasStartedLoop = true;
-        }
-    }
+            hasStartedRunner = true;
+            isWaitingForLoop = true;
 
-    void PlayPhaseIntroOnce(GamePhaseManager.Phase phase)
-    {
-        audioSource.loop = false;
-
-        // Si la phase n’a jamais été jouée avant, on joue son intro
-        switch (phase)
-        {
-            case GamePhaseManager.Phase.Platformer:
-                if (!hasPlayedPlatformer)
-                {
-                    audioSource.clip = startPlatformerMusic;
-                    audioSource.Play();
-                    hasPlayedPlatformer = true;
-                }
-                break;
-
-            case GamePhaseManager.Phase.Runner:
-                if (!hasPlayedRunner)
-                {
-                    audioSource.clip = startRunnerMusic;
-                    audioSource.Play();
-                    hasPlayedRunner = true;
-                }
-                break;
-        }
-    }
-
-    void PlayPhaseLoop(GamePhaseManager.Phase phase)
-    {
-        audioSource.loop = true;
-
-        switch (phase)
-        {
-            case GamePhaseManager.Phase.Platformer:
-                audioSource.clip = platformerMusicBoucle;
-                break;
-
-            case GamePhaseManager.Phase.Runner:
-                audioSource.clip = runnerMusicBoucle;
-                break;
+            audioSource.clip = startRunnerMusic;
+            audioSource.loop = false;
+            audioSource.Play();
         }
 
-        audioSource.Play();
+        // Jouer la boucle Runner une fois que l'intro est finie
+        if (hasStartedRunner && isWaitingForLoop && !audioSource.isPlaying)
+        {
+            audioSource.clip = runnerMusicBoucle;
+            audioSource.loop = true;
+            audioSource.Play();
+            isWaitingForLoop = false;
+        }
     }
 }

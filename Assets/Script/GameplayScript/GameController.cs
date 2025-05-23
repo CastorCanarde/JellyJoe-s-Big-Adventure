@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 
     private Vector3 basicScale;
 
+
     
 
 
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
+
         phaseManager.SwitchPhase(GamePhaseManager.Phase.Platformer);
 
 
