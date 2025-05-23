@@ -76,11 +76,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(PlayerPositionIsWalled, Vector2.right * CheckWallDistance, Color.red);
         Debug.DrawRay(PlayerPositionIsWalled, Vector2.left * CheckWallDistance, Color.red);
 
-        if(isGrounded)
-        {
-            animator.SetBool("isGrounded", true);
-
-        }
+        
 
         if (rb.velocity.y < 0)
         {

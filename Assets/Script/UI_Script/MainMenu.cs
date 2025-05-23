@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        //SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");
     }
 
     public void Quit()
@@ -23,9 +23,4 @@ public class MainMenu : MonoBehaviour
        
     }
 
-    public void AnimatedJJ()
-    {
-        animator.SetBool("isLoading", true);
-
-    }
 }
